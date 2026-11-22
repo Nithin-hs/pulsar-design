@@ -9,7 +9,7 @@ Inside the parent repo (so that `../app` is found):
 cd design
 ./build-docs.sh        # or: doxygen Doxyfile
 ```
-Open `doxygen-out/html/index.html`. Needs Doxygen 1.9 or newer and Graphviz (`dot`). The output folder is not committed.
+Open `doxygen-out/html/index.html`. Needs Doxygen 1.9 or newer, Graphviz, Java and `plantuml.jar` (apt: `doxygen graphviz plantuml default-jre-headless`; set `PLANTUML_JAR` if the jar is elsewhere). The output folder is not committed.
 
 ## What goes where
 | What | Where | How |
@@ -17,7 +17,7 @@ Open `doxygen-out/html/index.html`. Needs Doxygen 1.9 or newer and Graphviz (`do
 | Overview pages | `hld/*.md` | `# Title {#page_id}` and `@ref page_id` |
 | Modules | `hld/modules.dox` | one `@defgroup grp_xxx` per module with its responsibility and epics |
 | Module design (LLD) | `lld/<module>.md` | page `{#lld_<module>}`, linked from the group with `@ref` |
-| Diagrams | `diagrams/*.dot` | Graphviz; show with `\dotfile name.dot "caption"`; export `name.svg` for GitHub |
+| Diagrams | inside the pages | PlantUML: `@startuml{name} "caption"` ... `@enduml` (component, sequence, state, class diagrams) |
 | Code documentation | headers in `pulsar-app` | `@file`, `@brief`, `@param`, `@return`, and `@ingroup grp_xxx` |
 | Jira link | any comment | `\jira{KAN-12}` |
 | Requirement link | any comment | `\req{SR-n}` collects a Requirements list (first use comes with the first requirement mapping) |
@@ -28,7 +28,7 @@ Open `doxygen-out/html/index.html`. Needs Doxygen 1.9 or newer and Graphviz (`do
    `WARN_IF_UNDOCUMENTED` is on, so missing documentation shows up as a warning.
 3. **Update with the code:** a change that alters the design (task layout, protocol, memory use) updates the
    page or the comment in the same set of commits.
-4. **Diagrams are text:** keep the `.dot` source in git and export the `.svg`, so diagrams diff and review like code.
+4. **Diagrams are text:** PlantUML sits inside the Doxygen pages, so diagrams diff and review like code.
 5. **No generated output in git:** `doxygen-out/` is ignored.
 
 ## Adding a module

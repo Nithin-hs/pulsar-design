@@ -15,8 +15,6 @@ FILE_PATTERNS          = *.dox *.md *.h *.hpp *.c *.cpp
 RECURSIVE              = YES
 EXCLUDE_PATTERNS       = */README.md
 STRIP_FROM_PATH        = ..
-IMAGE_PATH             = diagrams
-DOTFILE_DIRS           = diagrams
 
 # Design rules: every public item must be documented.
 EXTRACT_ALL            = NO
@@ -45,3 +43,7 @@ CALL_GRAPH             = NO
 # \jira{KAN-12} links to the Jira issue.
 ALIASES                = "jira{1}=<a href=\"https://nithinhstheboss.atlassian.net/browse/\1\">\1</a>"
 ALIASES               += "req{1}=\xrefitem req \"Requirement\" \"Requirements\" \1"
+
+PLANTUML_JAR_PATH      = $(PLANTUML_JAR)
+PLANTUML_CFG_FILE      =
+PLANTUML_INCLUDE_PATH  =

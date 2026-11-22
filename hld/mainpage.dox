@@ -12,6 +12,7 @@ of `pulsar-firmware`) and generated with Doxygen, together with the comments in 
 @section main_where Where to start
 - @ref hld_system_overview : what the product is and how the parts fit together (product diagram)
 - @ref hld_architecture : layers, modules, tasks and data flow
+- @ref hld_behaviour : screen state machine and sequence diagrams (PlantUML)
 - @ref hld_repo_structure : repositories and folder structure (folder diagram)
 - @ref doxygen_guide : how we write and build the design
 - Modules : the *Topics* tree lists every module with its design notes and code

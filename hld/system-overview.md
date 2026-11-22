@@ -10,9 +10,51 @@ Pulsar is a handheld device that shows its on-board gyroscope data live and stre
 - **Software:** C++20 on FreeRTOS, TouchGFX UI, STM32CubeMX HAL.
 
 ## Product diagram
-The diagram source is `diagrams/product.dot` (exported as `product.svg`).
-
-\dotfile product.dot "Pulsar product block diagram"
+@startuml{product} "Pulsar product block diagram"
+skinparam componentStyle rectangle
+skinparam shadowing false
+actor User
+node "PC" {
+  [PC tool\nlive plot, CSV, commands] as pc
+}
+node "Pulsar device (STM32F429I-DISC1)" {
+  package "On-board hardware" {
+    [User button B1] as btn
+    [2.4in TFT 240x320\n8 MB SDRAM] as lcd
+    [Gyroscope] as gyro
+    [LEDs] as leds
+    [USB OTG] as usb
+  }
+  package "Firmware (C++20, FreeRTOS)" {
+    [HAL and drivers\n(CubeMX)] as hal
+    [Button input] as input
+    [Sensor service] as sensor
+    [Display UI\n(TouchGFX)] as ui
+    [USB CDC and protocol] as comm
+    [Application core] as app
+    [Logging] as log
+  }
+}
+User --> btn : presses
+lcd --> User : shows
+pc <--> usb : USB cable
+btn --> hal : GPIO
+gyro --> hal : SPI5
+lcd <-- hal : LTDC, FMC
+leds <-- hal : GPIO
+usb <--> hal : USB OTG
+hal --> input
+hal --> sensor
+hal <--> ui
+hal <--> comm
+input --> app
+sensor --> app
+app --> ui
+app <--> comm
+app ..> log
+sensor ..> log
+comm ..> log
+@enduml
 
 ## Operating flow
 1. Power on: the startup image is shown.
