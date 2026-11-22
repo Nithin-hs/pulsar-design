@@ -1,0 +1,61 @@
+# Build the Doxygen + PlantUML design and publish it to GitHub Pages on every push to main.
+name: design-pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out design
+        uses: actions/checkout@v4
+        with:
+          path: pulsar/design
+
+      # Code comments come from pulsar-app (private). Needs a read-only token in the secret
+      # PULSAR_READ_TOKEN. Without it the design still builds, only the code pages are missing.
+      - name: Check out app (optional)
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          repository: Nithin-hs/pulsar-app
+          token: ${{ secrets.PULSAR_READ_TOKEN }}
+          path: pulsar/app
+
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen graphviz plantuml default-jre-headless
+
+      - name: Build HTML
+        working-directory: pulsar/design
+        run: |
+          PLANTUML_JAR=/usr/share/plantuml/plantuml.jar doxygen Doxyfile
+          touch doxygen-out/html/.nojekyll
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: pulsar/design/doxygen-out/html
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
