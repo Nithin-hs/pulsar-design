@@ -1,0 +1,22 @@
+/**
+@mainpage Pulsar design
+
+Pulsar is a handheld device on the STM32F429I-DISC1 board. It shows a startup image, then a menu
+operated with the single user button. One menu entry is a **Live Data** screen with the on-board
+gyroscope data (numbers and a scrolling graph). The device also streams the data over USB to a PC tool
+that plots it, logs it to CSV and sends commands. The firmware is C++20 on FreeRTOS with a TouchGFX UI.
+
+This documentation is the design. It is written in this repository (`pulsar-design`, folder `design/`
+of `pulsar-firmware`) and generated with Doxygen, together with the comments in the application code.
+
+@section main_where Where to start
+- @ref hld_system_overview : what the product is and how the parts fit together (product diagram)
+- @ref hld_architecture : layers, modules, tasks and data flow
+- @ref hld_repo_structure : repositories and folder structure (folder diagram)
+- @ref doxygen_guide : how we write and build the design
+- Modules : the *Topics* tree lists every module with its design notes and code
+
+@section main_plan Planning
+Requirements are on Confluence (space PULSAR, page "Major features and system requirements").
+Epics and stories are in Jira project KAN. Each module page links its epic with `\jira{KAN-nn}`.
+*/

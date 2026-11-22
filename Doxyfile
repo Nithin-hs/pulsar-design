@@ -1,0 +1,47 @@
+# Doxygen configuration for the Pulsar design.
+# Run from this folder inside the parent repo (pulsar-firmware/design):  doxygen Doxyfile
+# Output: doxygen-out/html/index.html
+# Needs Doxygen 1.9 or newer and Graphviz (dot).
+
+PROJECT_NAME           = "Pulsar"
+PROJECT_BRIEF          = "Handheld sensor display on the STM32F429I-DISC1"
+OUTPUT_DIRECTORY       = doxygen-out
+CREATE_SUBDIRS         = NO
+
+# Design pages (hld, lld) and the application code. ../app exists when this repo
+# is used as the design/ submodule of pulsar-firmware.
+INPUT                  = hld lld ../app
+FILE_PATTERNS          = *.dox *.md *.h *.hpp *.c *.cpp
+RECURSIVE              = YES
+EXCLUDE_PATTERNS       = */README.md
+STRIP_FROM_PATH        = ..
+IMAGE_PATH             = diagrams
+DOTFILE_DIRS           = diagrams
+
+# Design rules: every public item must be documented.
+EXTRACT_ALL            = NO
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
+WARN_NO_PARAMDOC       = YES
+WARN_AS_ERROR          = NO
+
+# Output
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+GENERATE_TREEVIEW      = YES
+HTML_DYNAMIC_SECTIONS  = YES
+MARKDOWN_SUPPORT       = YES
+TOC_INCLUDE_HEADINGS   = 3
+SOURCE_BROWSER         = YES
+HAVE_DOT               = YES
+DOT_IMAGE_FORMAT       = svg
+INTERACTIVE_SVG        = NO
+UML_LOOK               = YES
+CLASS_GRAPH            = YES
+COLLABORATION_GRAPH    = YES
+INCLUDE_GRAPH          = YES
+CALL_GRAPH             = NO
+
+# \jira{KAN-12} links to the Jira issue.
+ALIASES                = "jira{1}=<a href=\"https://nithinhstheboss.atlassian.net/browse/\1\">\1</a>"
+ALIASES               += "req{1}=\xrefitem req \"Requirement\" \"Requirements\" \1"
