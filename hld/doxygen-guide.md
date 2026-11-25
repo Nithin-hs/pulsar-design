@@ -12,9 +12,8 @@ cd design
 Open `doxygen-out/html/index.html`. Needs Doxygen 1.9 or newer, Graphviz, Java and `plantuml.jar` (apt: `doxygen graphviz plantuml default-jre-headless`; set `PLANTUML_JAR` if the jar is elsewhere). The output folder is not committed.
 
 ## Published site
-The repo is private, so the HTML is not published automatically. A private copy is published as a
-claude.ai page and refreshed from `main` on request. The workflow `.github/workflows/pages.yml` (GitHub Pages,
-public site) is manual only and unused.
+Every push to `main` of `pulsar-design` rebuilds the HTML and publishes it with GitHub Pages
+(workflow `.github/workflows/pages.yml`). URL: https://nithin-hs.github.io/pulsar-design/
 
 ## What goes where
 | What | Where | How |

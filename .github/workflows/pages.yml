@@ -1,9 +1,9 @@
 # Build the Doxygen + PlantUML design and publish it to GitHub Pages on every push to main.
 name: design-pages
 
-# Manual only: the repo is private and GitHub Pages sites are public, so nothing publishes automatically.
-# To publish on every push, enable Pages (Source: GitHub Actions) and add the push trigger back.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
